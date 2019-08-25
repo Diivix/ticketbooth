@@ -1,9 +1,12 @@
+require('dotenv').config()
 const http = require('http');
 const express = require('express');
 const userRouter = require('./routes/user');
 const tokenRouter = require('./routes/token');
-var swaggerUi = require('swagger-ui-express');
+const signupRouter = require('./routes/signup');
+const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const passport = require('./utils/auth');
 
 const app = express();
 
@@ -14,17 +17,31 @@ const swaggerOptions = {
       title: 'Ticket to Ride', // Title (required)
       version: '0.1.0', // Version (required)
     },
+    host: 'localhost:300',
+    basePath: '/',
+    securityDefinitions: {
+      basicAuth: {
+        type: 'basic',
+        // scheme: 'basic',
+      },
+    },
+    security: [
+      {
+        basicAuth: []
+      }
+    ]
   },
   // Path to the API docs
-  apis: ['src/routes/token.js'],
+  apis: ['src/routes/signup.js', 'src/routes/token.js', 'src/routes/user.js'],
 };
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 app.use(express.json());
 
 // Routes
-app.use('/user', userRouter);
-app.use('/token', tokenRouter);
+app.use('/signup', signupRouter);
+app.use('/user', passport.authenticate('basic', { session: false }), userRouter);
+app.use('/token', passport.authenticate('basic', { session: false }), tokenRouter);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Default route

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = '../models';
 
 /**
  * @swagger
@@ -8,18 +9,6 @@ const router = express.Router();
  *     summary: Returns a JWT for the user.
  *     produces:
  *       - application/json
- *     requestBody:
- *       description: Username and password.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               password:
- *                 type: string
  *     responses:
  *       200:
  *         description: JWT returned.
@@ -27,7 +16,12 @@ const router = express.Router();
  *         description: Server error.
  */
 router.post('/', function(req, res) {
-  res.status(200).json({username: req.body.username});
+  const data = req.get('authorization').split(' ')[1];
+  const buff = Buffer.from(data, 'base64');
+  const emailAndPassword = buff.toString('ascii').split(':'); // colons in the email or password will break this.
+
+  // TODO: generate the token
+  return res.status(200).send(emailAndPassword[0]);
 });
 
 module.exports = router;
