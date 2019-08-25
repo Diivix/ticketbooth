@@ -17,7 +17,8 @@ module.exports = {
       {
         username: 'Aegar',
         email: 'aegar@reroll.com',
-        passwordHash: 'password',
+        // password is password
+        passwordHash: '$2b$10$GFqClXyq6RfqMu.sz0yRE.ntfeT4UauR8Cy/fRgv357OZ/fpV5u4y',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       }], {});

@@ -96,3 +96,6 @@ typings/
 
 # sqlite database
 *.sqlite3
+
+# Public / Private keys
+keys/

@@ -5,6 +5,7 @@
 - [Creating a RESTful Web API](https://medium.com/@metehansenol/creating-a-restful-web-api-with-node-js-and-express-js-from-scratch-9ba6e21d58b9)
 - [Using Swagger](http://www.acuriousanimal.com/2018/10/20/express-swagger-doc.html)
 - [Using sequalize.js](https://stackabuse.com/using-sequelize-js-and-sqlite-in-an-express-js-app/)
+- [Exmaple providing JWTs](https://dev.to/santypk4/you-don-t-need-passport-js-guide-to-node-js-authentication-26ig)
 
 ## Database
 
@@ -23,3 +24,8 @@ See [Using sequalize.js](https://stackabuse.com/using-sequelize-js-and-sqlite-in
 `node_modules/.bin/sequelize db:seed:all`
 5. [optional] undo the seeds
 `node_modules/.bin/sequelize db:seed:undo:all`
+
+## Generate public/private keypair
+
+1. `openssl genrsa -out private.key 2048`
+2. `openssl rsa -in private.key -outform PEM -pubout -out public.key`
