@@ -99,7 +99,7 @@ router.put('/:id', async function(req, res) {
  * @swagger
  * /user/{id}:
  *   delete:
- *     summary: Updates and returns a user by ID.
+ *     summary: Deletes a user by ID.
  *     produces:
  *       - application/json
  *     parameters:
