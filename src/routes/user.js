@@ -2,26 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
-/**
- * @swagger
- * /user/{id}:
- *   get:
- *     summary: Returns a user by ID.
- *     produces:
- *       - application/json
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: Numeric ID of the user
- *     responses:
- *       200:
- *         description: User object returned.
- *       500:
- *         description: Server error.
- */
 router.get('/:id', function(req, res) {
   const id = parseInt(req.params.id);
   return db.users
@@ -33,40 +13,6 @@ router.get('/:id', function(req, res) {
     });
 });
 
-/**
- * @swagger
- * /user/{id}:
- *   put:
- *     summary: Updates and returns a user by ID.
- *     produces:
- *       - application/json
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: Numeric ID of the user
- *     requestBody:
- *       description: Username, email, and password.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: Updated user object returned.
- *       500:
- *         description: Server error.
- */
 router.put('/:id', async function(req, res) {
   const id = parseInt(req.params.id);
   let { username, email, password } = req.body;
@@ -95,26 +41,6 @@ router.put('/:id', async function(req, res) {
   });
 });
 
-/**
- * @swagger
- * /user/{id}:
- *   delete:
- *     summary: Deletes a user by ID.
- *     produces:
- *       - application/json
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: Numeric ID of the user
- *     responses:
- *       200:
- *         description: Deleted user ID returned.
- *       500:
- *         description: Server error.
- */
 router.delete('/:id', function(req, res) {
   const id = parseInt(req.params.id);
   return db.users

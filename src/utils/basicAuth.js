@@ -1,5 +1,5 @@
 const passport = require('passport');
-const Strategy = require('passport-http').BasicStrategy;
+const BasicStrategy = require('passport-http').BasicStrategy;
 const bcrypt = require('bcrypt');
 const db = require('../models');
 
@@ -10,8 +10,7 @@ const db = require('../models');
 // function must verify that the password is correct and then invoke `cb` with
 // a user object, which will be set at `req.user` in route handlers after
 // authentication.
-passport.use(
-  new Strategy(function(email, password, cb) {
+passport.use(new BasicStrategy(function(email, password, cb) {
     db.users
       .findOne({ where: { email: email } })
       .then(user => {
