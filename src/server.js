@@ -1,24 +1,29 @@
 require('dotenv').config()
+const debug = require('debug')('server') // debug logger
+debug('booting %o', 'Ticketbooth');
+const morgan = require('morgan')         // request logger
+
 const http = require('http');
 const express = require('express');
-const debug = require('debug')('server') // debug logger
-var morgan = require('morgan')           // request logger
+const passport = require('passport');
 
 const userRouter = require('./routes/user');
 const tokenRouter = require('./routes/token');
 const signupRouter = require('./routes/signup');
-const jwtPassport = require('./utils/jwtAuth');
-const basicPassport = require('./utils/basicAuth');
+const jwtStrategy = require('./utils/jwtAuth');
+const basicStrategy = require('./utils/basicAuth');
 
 const app = express();
 app.use(express.json());
-app.use(morgan('combined'))
-debug('booting %o', 'Ticketbooth');
+app.use(morgan('dev'));
+
+passport.use(jwtStrategy);
+passport.use(basicStrategy);
 
 // Routes
 app.use('/signup', signupRouter);
-app.use('/token', basicPassport.authenticate('basic', { session: false }), tokenRouter);
-app.use('/user', jwtPassport.authenticate('jwt', { session: false }), userRouter);
+app.use('/token', passport.authenticate('basic', { session: false }), tokenRouter);
+app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 
 // Default route
 app.use('/', function(req, res) {
@@ -28,4 +33,4 @@ app.use('/', function(req, res) {
 const server = http.createServer(app);
 const port = 3000;
 server.listen(port);
-console.debug('Server listening on port ' + port);
+debug('Server listening on port ' + port);

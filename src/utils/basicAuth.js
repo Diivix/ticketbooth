@@ -1,7 +1,7 @@
-const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const bcrypt = require('bcrypt');
 const db = require('../models');
+const debug = require('debug')('utils:basicAuth'); // debug logger
 
 // Configure the Basic strategy for use by Passport.
 //
@@ -10,30 +10,34 @@ const db = require('../models');
 // function must verify that the password is correct and then invoke `cb` with
 // a user object, which will be set at `req.user` in route handlers after
 // authentication.
-passport.use(new BasicStrategy(function(email, password, cb) {
-    db.users
-      .findOne({ where: { email: email } })
-      .then(user => {
-        if (!user) {
-          return cb(null, false);
+const strategy = new BasicStrategy(function(email, password, cb) {
+  debug('Authenticating with Passport basic strategy');
+  db.users
+    .findOne({ where: { email: email } })
+    .then(user => {
+      if (!user) {
+        return cb(null, false);
+      }
+
+      bcrypt.compare(password, user.passwordHash, function(err, res) {
+        if (err) {
+          debug(err);
+          return cb(err);
         }
 
-        bcrypt.compare(password, user.passwordHash, function(err, res) {
-          if (err) {
-            return cb(err);
-          }
-
-          if (res) {
-            return cb(null, user);
-          } else {
-            return cb(null, false);
-          }
-        });
-      })
-      .catch(err => {
-        return cb(err);
+        if (res) {
+          debug('Authenticated, user is %o', JSON.stringify(user));
+          return cb(null, user);
+        } else {
+          debug('Unknown error occured. res is %o', res);
+          return cb(null, false);
+        }
       });
-  })
-);
+    })
+    .catch(err => {
+      debug(err);
+      return cb(err);
+    });
+});
 
-module.exports = passport;
+module.exports = strategy;
