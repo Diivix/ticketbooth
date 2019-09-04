@@ -1,6 +1,9 @@
 require('dotenv').config()
 const http = require('http');
 const express = require('express');
+const debug = require('debug')('server') // debug logger
+var morgan = require('morgan')           // request logger
+
 const userRouter = require('./routes/user');
 const tokenRouter = require('./routes/token');
 const signupRouter = require('./routes/signup');
@@ -9,6 +12,8 @@ const basicPassport = require('./utils/basicAuth');
 
 const app = express();
 app.use(express.json());
+app.use(morgan('combined'))
+debug('booting %o', 'Ticketbooth');
 
 // Routes
 app.use('/signup', signupRouter);

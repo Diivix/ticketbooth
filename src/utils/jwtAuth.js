@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const db = require('../models');
 const fs = require('fs');
+const debug = require('debug')('jwtAuth') // debug logger
 
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -11,10 +12,10 @@ opts.issuer = 'ticketbooth.auth.com';
 opts.audience = 'reroll.com';
 opts.ignoreExpiration = true;
 
-console.log("Here####################");
+debug('Here################dddddd')
 
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    console.log("yoyoyoyoyo");
+    debug('Here################')
     console.log(jwt_payload);
     db.users
       .findOne({ where: { email: jwt_payload.sub } })
@@ -22,7 +23,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
         if (!user) {
           return done('User not found.', false);
         }
-        console.log("Here!!!!!!!!!!!!!!!!");
+        debug("Here!!!!!!!!!!!!!!!!");
         return done(null, user);
       })
       .catch(err => {
