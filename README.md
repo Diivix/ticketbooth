@@ -27,5 +27,5 @@ See [Using sequalize.js](https://stackabuse.com/using-sequelize-js-and-sqlite-in
 
 ## Generate public/private keypair
 
-1. `openssl genrsa -out private.key 2048`
-2. `openssl rsa -in private.key -outform PEM -pubout -out public.key`
+1. `openssl genrsa -out private.pem 2048`
+2. `openssl rsa -in private.pem -outform PEM -pubout -out public.pem`
