@@ -26,7 +26,7 @@ const strategy = new BasicStrategy(function(email, password, cb) {
         }
 
         if (res) {
-          debug('Authenticated, user is %o', JSON.stringify(user));
+          debug('Authenticated, user is %o', user.username);
           return cb(null, user);
         } else {
           debug('Unknown error occured. res is %o', res);

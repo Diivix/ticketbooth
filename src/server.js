@@ -1,7 +1,7 @@
 require('dotenv').config()
 const debug = require('debug')('server') // debug logger
-debug('booting %o', 'Ticketbooth');
 const morgan = require('morgan')         // request logger
+debug('booting %o', 'Ticketbooth');
 
 const http = require('http');
 const express = require('express');
@@ -10,15 +10,15 @@ const passport = require('passport');
 const userRouter = require('./routes/user');
 const tokenRouter = require('./routes/token');
 const signupRouter = require('./routes/signup');
-const jwtStrategy = require('./utils/jwtAuth');
 const basicStrategy = require('./utils/basicAuth');
+const jwtStrategy = require('./utils/jwtAuth');
 
 const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
-passport.use(jwtStrategy);
 passport.use(basicStrategy);
+passport.use(jwtStrategy);
 
 // Routes
 app.use('/signup', signupRouter);
