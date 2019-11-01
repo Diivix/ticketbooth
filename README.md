@@ -14,6 +14,13 @@ See [Using sequalize.js](https://stackabuse.com/using-sequelize-js-and-sqlite-in
 
 ### Seeding and migrating
 
+This is all that should be needed from now on, assuming the initial migration and seeders have been created:
+
+1. Migrate the database: `node_modules/.bin/sequelize db:migrate`
+2. Seed the database: `node_modules/.bin/sequelize db:seed:all`
+
+#### From Scratch
+
 1. Create a new table/model:
 `node_modules/.bin/sequelize model:generate --name Contact --attributes firstName:string,lastName:string,phone:string,email:string`
 2. Migrate the database:

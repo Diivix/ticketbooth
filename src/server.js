@@ -8,7 +8,7 @@ const express = require('express');
 const passport = require('passport');
 
 const userRouter = require('./routes/user');
-const tokenRouter = require('./routes/token');
+const signinRouter = require('./routes/signin');
 const signupRouter = require('./routes/signup');
 const basicStrategy = require('./utils/basicAuth');
 const jwtStrategy = require('./utils/jwtAuth');
@@ -22,7 +22,7 @@ passport.use(jwtStrategy);
 
 // Routes
 app.use('/signup', signupRouter);
-app.use('/token', passport.authenticate('basic', { session: false }), tokenRouter);
+app.use('/signin', passport.authenticate('basic', { session: false }), signinRouter);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 
 // Default route

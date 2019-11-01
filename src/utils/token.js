@@ -1,12 +1,10 @@
 const fs = require('fs');
 const express = require('express');
-const router = express.Router();
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('route:token'); // debug logger
 
-router.post('/', function(req, res) {
+const createToken = (user) => {
   debug('Creating token');
-  const user = req.user;
   var privateKey = fs.readFileSync(process.env.PRIVATE_KEY);
   const options = {
     issuer: process.env.JWT_ISSUER,
@@ -23,15 +21,7 @@ router.post('/', function(req, res) {
 
   debug('Token claims are: %o', JSON.stringify(claims));
 
-  jwt.sign({ claims }, privateKey,  options, function(err, token) {
-    if (err) {
-      debug(err);
-      return res.status(500);
-    }
+  return jwt.sign({ claims }, privateKey,  options);
+}
 
-    debug('Token issued');
-    return res.status(200).send(token);
-  });
-});
-
-module.exports = router;
+module.exports = createToken;
