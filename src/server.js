@@ -6,6 +6,7 @@ const morgan = require('morgan')         // request logger
 debug('booting %o', 'Ticketbooth');
 
 const https = require('https');
+const cors = require('cors')
 const express = require('express');
 const passport = require('passport');
 
@@ -16,6 +17,19 @@ const basicStrategy = require('./utils/basicAuth');
 const jwtStrategy = require('./utils/jwtAuth');
 
 const app = express();
+
+const corsWhitelist = process.env.CORS_WHITELIST.split(",");
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (corsWhitelist.indexOf(origin) !== -1 || (process.env.NODE_ENV !== "production" && !origin)) {
+      callback(null, true)
+    } else {
+      callback('Not allowed by CORS')
+    }
+  }
+}
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 

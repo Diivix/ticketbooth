@@ -37,7 +37,7 @@ This is all that should be needed from now on, assuming the initial migration an
 1. `openssl genrsa -out private.key 2048`
 2. `openssl rsa -in ./keys/private.key -outform PEM -pubout -out ./keys/public.key`
 
-1. `openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=<State>/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout ./keys/server.key -out ./keys/server.crt`
+1. `openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout ./keys/server.key -out ./keys/server.crt`
 
 ## Deploying on Docker
 
