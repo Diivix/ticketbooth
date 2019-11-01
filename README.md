@@ -32,7 +32,17 @@ This is all that should be needed from now on, assuming the initial migration an
 5. [optional] undo the seeds
 `node_modules/.bin/sequelize db:seed:undo:all`
 
-## Generate public/private keypair
+## Generate public/private keypair and SSL certs
 
-1. `openssl genrsa -out private.pem 2048`
-2. `openssl rsa -in private.pem -outform PEM -pubout -out public.pem`
+1. `openssl genrsa -out private.key 2048`
+2. `openssl rsa -in ./keys/private.key -outform PEM -pubout -out ./keys/public.key`
+
+1. `openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=<State>/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout ./keys/server.key -out ./keys/server.crt`
+
+## Deploying on Docker
+
+1. Run `docker build -t ticketbooth .`
+2. Run `docker run --name ticketbooth -p 8080:8080 -d ticketbooth`
+
+To stop the container run `docker stop ticketbooth`
+To ssh into the container run `docker exec -it ticketbooth /bin/bash`.
