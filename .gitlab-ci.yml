@@ -30,6 +30,7 @@ test:
     - docker pull $TEST_IMAGE
     - mkdir keys
     - apk add openssl
+    - apk add curl
     - openssl genrsa -out keys/private.key 2048
     - openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
     - openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
