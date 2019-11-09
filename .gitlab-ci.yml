@@ -9,7 +9,7 @@ stages:
 - release
 
 variables:
-  TEST_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:$CI_COMMIT_REF_NAME
+  TEST_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:${CI_COMMIT_REF_NAME}
   RELEASE_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
 
 before_script:
@@ -30,7 +30,7 @@ test:
     - docker pull ${TEST_IMAGE}
     - mkdir keys
     - apk add openssl
-    - openssl genrsa -out keys/rivate.key 2048
+    - openssl genrsa -out keys/private.key 2048
     - openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
     - openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
     - docker run --name $CI_PROJECT_NAME -p 8080:8080 -d $CI_PROJECT_NAME
