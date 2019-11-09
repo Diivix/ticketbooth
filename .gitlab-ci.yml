@@ -21,6 +21,8 @@ build:
   script:
     - docker build -t ${TEST_IMAGE} .
     - docker push ${TEST_IMAGE}
+  tags:
+    - docker
 
 test:
   stage: test
@@ -34,6 +36,8 @@ test:
     - docker run --name $CI_PROJECT_NAME -p 8080:8080 -d $CI_PROJECT_NAME
     - docker cp keys/. $CI_PROJECT_NAME:/app/keys
     - curl -kv https://localhost:8080
+  tags:
+    - docker
 
 release:
   stage: release
@@ -43,3 +47,5 @@ release:
     - docker push ${RELEASE_IMAGE}
   only:
     - master
+  tags:
+    - docker
