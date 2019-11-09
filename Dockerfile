@@ -21,6 +21,7 @@ RUN mkdir /app/keys
 # RUN openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout /app/keys/server.key -out /app/keys/server.crt
 
 # Setup app environment variables
+ENV NODE_ENV='development'
 ENV PORT='8080'
 ENV CORS_WHITELIST='https://localhost:3000,https://localhost:3001'
 ENV SERVER_KEY='./keys/server.key'
