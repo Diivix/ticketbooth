@@ -1,14 +1,13 @@
 require('dotenv').config()
-const fs = require('fs')
 
+const express = require('express');
+const https = require('https');
+const helmet = require('helmet');
+const cors = require('cors')
+const passport = require('passport');
+const fs = require('fs')
 const debug = require('debug')('server') // debug logger
 const morgan = require('morgan')         // request logger
-debug('booting %o', 'Ticketbooth');
-
-const https = require('https');
-const cors = require('cors')
-const express = require('express');
-const passport = require('passport');
 
 const userRouter = require('./routes/user');
 const signinRouter = require('./routes/signin');
@@ -17,6 +16,7 @@ const basicStrategy = require('./utils/basicAuth');
 const jwtStrategy = require('./utils/jwtAuth');
 
 const app = express();
+debug('booting %o', 'Ticketbooth');
 
 const corsWhitelist = process.env.CORS_WHITELIST.split(",");
 const corsOptions = {
@@ -30,6 +30,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+app.use(helmet());
 app.use(express.json());
 app.use(morgan('dev'));
 

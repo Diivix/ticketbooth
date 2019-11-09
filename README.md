@@ -6,6 +6,8 @@
 - [Using Swagger](http://www.acuriousanimal.com/2018/10/20/express-swagger-doc.html)
 - [Using sequalize.js](https://stackabuse.com/using-sequelize-js-and-sqlite-in-an-express-js-app/)
 - [Exmaple providing JWTs](https://dev.to/santypk4/you-don-t-need-passport-js-guide-to-node-js-authentication-26ig)
+- [Lightship health checks](https://github.com/gajus/lightship#lightship-usage-examples-using-with-express-js)
+- [Security best practices](https://expressjs.com/en/advanced/best-practice-security.html)
 
 ## Database
 
@@ -43,10 +45,29 @@ This is all that should be needed from now on, assuming the initial migration an
 
 1. `openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout ./keys/server.key -out ./keys/server.crt`
 
-## Deploying on Docker
+## Deploying on Docker Locally
 
-1. Run `docker build -t ticketbooth .`
-2. Run `docker run --name ticketbooth -p 8080:8080 -d ticketbooth`
+### Build and start
 
-To stop the container run `docker stop ticketbooth`
+``` bash
+rm -rf keys
+mkdir keys
+openssl genrsa -out keys/private.key 2048
+openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
+openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
+docker build -t ticketbooth .
+docker container create --name ticketbooth -p 8443:8443 ticketbooth
+docker cp keys/. ticketbooth:/app/keys
+#rm -r keys
+docker container start ticketbooth
+```
+
+### Stop and Remove Container
+
+```bash
+docker container stop ticketbooth
+docker container rm ticketbooth
+docker image rm ticketbooth
+```
+
 To ssh into the container run `docker exec -it ticketbooth /bin/bash`.
