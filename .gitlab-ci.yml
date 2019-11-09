@@ -38,7 +38,7 @@ test:
     - docker cp keys/. $CI_PROJECT_NAME:/app/keys
     - docker container start $CI_PROJECT_NAME
     - docker port $CI_PROJECT_NAME
-    - curl -kv https://0.0.0.0:8080
+    - curl -kv docker:8080
   tags:
     - docker
 
