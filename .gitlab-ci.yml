@@ -22,8 +22,6 @@ build:
   script:
     - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-  after_script:
-    - docker logout ${CI_REGISTRY}
   stage: build
   tags: 
     - docker
