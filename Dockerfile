@@ -16,9 +16,9 @@ RUN npm install
 RUN node_modules/.bin/sequelize db:migrate
 RUN node_modules/.bin/sequelize db:seed:all
 RUN mkdir /app/keys
-RUN openssl genrsa -out /app/keys/private.key 2048
-RUN openssl rsa -in /app/keys/private.key -outform PEM -pubout -out /app/keys/public.key
-RUN openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout /app/keys/server.key -out /app/keys/server.crt
+# RUN openssl genrsa -out /app/keys/private.key 2048
+# RUN openssl rsa -in /app/keys/private.key -outform PEM -pubout -out /app/keys/public.key
+# RUN openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout /app/keys/server.key -out /app/keys/server.crt
 
 # Setup app environment variables
 ENV PORT='8080'
