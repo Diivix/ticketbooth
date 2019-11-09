@@ -17,6 +17,7 @@ dockerLogin:
     - develop
   script:
     - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
+  stage: .pre
 
 buildContiner:
   only:
@@ -41,3 +42,4 @@ dockerLogout:
     - develop
   script:
     - docker logout ${CI_REGISTRY}
+  stage: .post
