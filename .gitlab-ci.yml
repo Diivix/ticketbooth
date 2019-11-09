@@ -6,38 +6,24 @@ services:
 before_script:
   - docker info
 
-stages:
-  - .pre
-  - build
-  - deploy
-  - .post
-
-dockerLogin:
+build:
   only:
     - develop
-  script:
+  before_script:
     - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
-
-buildContiner:
-  only:
-    - develop
   script:
     - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
   stage: build
   tags: 
     - docker
 
-pushContiner:
+deploy:
   only:
     - develop
   script:
     - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+  after_script:
+    - docker logout ${CI_REGISTRY}
   stage: deploy
   tags: 
     - docker
-
-dockerLogout:
-  only:
-    - develop
-  script:
-    - docker logout ${CI_REGISTRY}
