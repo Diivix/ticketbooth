@@ -36,9 +36,11 @@ test:
     - openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
     - docker container create --name $CI_PROJECT_NAME -p 8080:8080 $TEST_IMAGE
     - docker cp keys/. $CI_PROJECT_NAME:/app/keys
+    - rm -r keys
     - docker container start $CI_PROJECT_NAME
     - docker port $CI_PROJECT_NAME
-    - curl -kv docker:8080
+    - sleep 10
+    - curl -kv https://docker:8080
   tags:
     - docker
 
