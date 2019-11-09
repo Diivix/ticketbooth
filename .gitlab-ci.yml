@@ -1,4 +1,4 @@
-image: ubuntu:latest
+image: docker:latest
 
 services:
   - docker:dind
@@ -25,6 +25,7 @@ build:
 test:
   stage: test
   script:
+    - apt-get install openssl
     - docker pull ${TEST_IMAGE}
     - mkdir keys
     - openssl genrsa -out keys/rivate.key 2048
