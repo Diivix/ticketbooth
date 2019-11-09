@@ -20,8 +20,8 @@ build:
   only:
     - develop
   script:
-    - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
-    - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+    - docker build -t ${TEST_IMAGE} .
+    - docker push ${TEST_IMAGE}
   stage: build
   tags: 
     - docker
@@ -29,19 +29,20 @@ build:
 test:
   stage: test
   script:
-    - docker pull $TEST_IMAGE
+    - docker pull ${TEST_IMAGE}
     - mkdir keys
     - openssl genrsa -out keys/rivate.key 2048
     - openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
     - openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
     - docker run --name $CI_PROJECT_NAME -p 8080:8080 -d $CI_PROJECT_NAME
     - docker cp keys/. $CI_PROJECT_NAME:/app/keys
+    - curl -kv https://localhost:8080
 
 release:
   stage: release
   script:
-    - docker pull $TEST_IMAGE
-    - docker tag $TEST_IMAGE $RELEASE_IMAGE
-    - docker push $RELEASE_IMAGE
+    - docker pull ${TEST_IMAGE}
+    - docker tag ${TEST_IMAGE} ${RELEASE_IMAGE}
+    - docker push ${RELEASE_IMAGE}
   only:
     - master
