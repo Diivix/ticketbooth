@@ -31,5 +31,5 @@ ENV JWT_ISSUER='ticketboothauth.com'
 ENV JWT_AUDIENCE='compendium.com'
 ENV JWT_EXPIRES_IN='12h'
 
-EXPOSE 3000
+EXPOSE 8080
 CMD [ "npm", "start" ]
