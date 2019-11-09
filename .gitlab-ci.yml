@@ -37,6 +37,8 @@ test:
     - docker container create --name $CI_PROJECT_NAME -p 8080:8080 $TEST_IMAGE
     - docker cp keys/. $CI_PROJECT_NAME:/app/keys
     - docker container start $CI_PROJECT_NAME
+    - docker port $CI_PROJECT_NAME
+    - docker inspect $CI_PROJECT_NAME
     - curl -kv https://localhost:8080
   tags:
     - docker
