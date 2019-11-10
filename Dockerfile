@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:12
 
 # Create app directory
 WORKDIR /app
@@ -10,11 +10,12 @@ COPY package*.json ./
 # Bundle app source
 COPY . .
 
-RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
+RUN npm install
+# RUN npm ci --only=production
 RUN node_modules/.bin/sequelize db:migrate
-RUN node_modules/.bin/sequelize db:seed:all
+#RUN node_modules/.bin/sequelize db:seed:all
 RUN mkdir /app/keys
 
 # Setup app environment variables
@@ -29,5 +30,5 @@ ENV JWT_ISSUER='ticketboothauth.com'
 ENV JWT_AUDIENCE='compendium.com'
 ENV JWT_EXPIRES_IN='12h'
 
-EXPOSE 8080
+EXPOSE 8443
 CMD [ "npm", "start" ]

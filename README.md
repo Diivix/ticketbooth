@@ -8,6 +8,7 @@
 - [Exmaple providing JWTs](https://dev.to/santypk4/you-don-t-need-passport-js-guide-to-node-js-authentication-26ig)
 - [Lightship health checks](https://github.com/gajus/lightship#lightship-usage-examples-using-with-express-js)
 - [Security best practices](https://expressjs.com/en/advanced/best-practice-security.html)
+- [Setting up tests](https://dev.to/nedsoft/testing-nodejs-express-api-with-jest-and-supertest-1km6)
 
 ## Database
 
