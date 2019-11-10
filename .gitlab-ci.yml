@@ -39,7 +39,7 @@ test:
     - rm -r keys
     - docker container start $CI_PROJECT_NAME
     - sleep 5
-    - curl -kv https://docker:3080
+    - curl -kv http://docker:3080
   tags:
     - docker
 
