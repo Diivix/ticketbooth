@@ -16,9 +16,9 @@ module.exports = {
     return queryInterface.bulkInsert('users', [
       {
         username: 'Aegar',
-        email: 'aegar@reroll.com',
-        // password is password
-        passwordHash: '$2b$10$GFqClXyq6RfqMu.sz0yRE.ntfeT4UauR8Cy/fRgv357OZ/fpV5u4y',
+        email: 'aegar@compendium.com',
+        passwordHash: '$2b$10$hWlSYgAgJ1Wn3kFEXRKTXOMNrY5.oIYO.3syXPw/XQQkM14aYO8d.',
+        role: 'admin',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       }], {});

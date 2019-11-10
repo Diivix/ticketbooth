@@ -15,7 +15,7 @@ COPY . .
 RUN npm install
 # RUN npm ci --only=production
 RUN node_modules/.bin/sequelize db:migrate
-#RUN node_modules/.bin/sequelize db:seed:all
+RUN node_modules/.bin/sequelize db:seed:all
 RUN mkdir /app/keys
 
 # Setup app environment variables

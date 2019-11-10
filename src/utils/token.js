@@ -1,7 +1,6 @@
 const fs = require('fs');
-const express = require('express');
 const jwt = require('jsonwebtoken');
-const debug = require('debug')('route:token'); // debug logger
+const debug = require('debug')('utils:token'); // debug logger
 
 const createToken = (user) => {
   debug('Creating token');
@@ -16,7 +15,7 @@ const createToken = (user) => {
     _id: user.id,
     sub: user.email,
     name: user.username,
-    role: 'user',
+    role: user.role,
   };
 
   debug('Token claims are: %o', JSON.stringify(claims));

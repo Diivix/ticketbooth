@@ -38,7 +38,8 @@ passport.use(basicStrategy);
 passport.use(jwtStrategy);
 
 // Routes
-app.use('/signup', signupRouter);
+// Need to be admin user to signup new users.
+app.use('/signup', passport.authenticate('jwt', { session: false }), signupRouter);
 app.use('/signin', passport.authenticate('basic', { session: false }), signinRouter);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 
