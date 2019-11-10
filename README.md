@@ -58,10 +58,10 @@ rm -rf keys
 mkdir keys
 openssl genrsa -out keys/private.key 2048
 openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
-openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
+#openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
 docker build -t ticketbooth .
-docker container create --name ticketbooth -p 8443:8443 ticketbooth
-docker cp keys/. ticketbooth:/app/keys
+docker container create --name ticketbooth -p 3080:3080 ticketbooth
+docker cp keys/. ticketbooth:/data/keys
 #rm -r keys
 docker container start ticketbooth
 ```
