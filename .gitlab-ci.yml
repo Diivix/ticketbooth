@@ -34,12 +34,12 @@ test:
     - openssl genrsa -out keys/private.key 2048
     - openssl rsa -in keys/private.key -outform PEM -pubout -out keys/public.key
     # - openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=AU/ST=ACT/L=Canberra/O=OrangeLightning/CN=ticketbooth" -keyout keys/server.key -out keys/server.crt
-    - docker container create --name $CI_PROJECT_NAME -p 3080:3080 $TEST_IMAGE
+    - docker container create --name $CI_PROJECT_NAME -p 443:443 $TEST_IMAGE
     - docker cp keys/. $CI_PROJECT_NAME:/data/keys
     - rm -r keys
     - docker container start $CI_PROJECT_NAME
     - sleep 5
-    - curl -kv http://docker:3080
+    - curl -kv http://docker:443
   tags:
     - docker
 
