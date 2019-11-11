@@ -20,7 +20,7 @@ RUN node_modules/.bin/sequelize db:seed:all
 
 # Setup app environment variables
 ENV NODE_ENV='production'
-ENV PORT='443'
+ENV PORT='3080'
 ENV CORS_WHITELIST='https://localhost:3000,https://localhost:3001'
 ENV SERVER_KEY='/data/keys/server.key'
 ENV SERVER_CERT='/data/keys/server.crt'
