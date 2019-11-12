@@ -39,6 +39,8 @@ test:
     - rm -r keys
     - docker container start $CI_PROJECT_NAME
     - sleep 5
+    - docker exec -t --workdir /app ticketbooth node_modules/.bin/sequelize db:migrate
+    - docker exec -t --workdir /app ticketbooth node_modules/.bin/sequelize db:seed:all
     - curl -kv http://docker:3080
   tags:
     - docker
