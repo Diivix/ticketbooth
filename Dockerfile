@@ -15,8 +15,8 @@ RUN mkdir -p /data/keys
 # RUN npm ci --only=production
 RUN npm install
 # RUN npm ci --only=production
-RUN node_modules/.bin/sequelize db:migrate
-RUN node_modules/.bin/sequelize db:seed:all
+# RUN node_modules/.bin/sequelize db:migrate
+# RUN node_modules/.bin/sequelize db:seed:all
 
 # Setup app environment variables
 ENV NODE_ENV='production'
