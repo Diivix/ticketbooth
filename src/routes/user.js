@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
     });
 });
 
-router.put( async function(req, res) {
+router.put('/', async function(req, res) {
   const id = parseInt(req.user.id);
   let { username, email, password } = req.body;
   const date = new Date().toISOString();
@@ -42,8 +42,8 @@ router.put( async function(req, res) {
   });
 });
 
-router.delete('/:id', function(req, res) {
-  const id = parseInt(req.params.id);
+router.delete('/', function(req, res) {
+  const id = parseInt(req.user.id);
   return db.users
     .findByPk(id)
     .then(user => user.destroy({ force: true }))
