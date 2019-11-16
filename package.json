@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node --optimize_for_size --max_old_space_size=256 --gc_interval=100 src/server.js",
+    "build": "rm -rf dist && webpack --mode development"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
@@ -22,7 +23,15 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "babel-loader": "^8.0.6",
+    "file-loader": "^4.2.0",
+    "json-loader": "^0.5.7",
     "nodemon": "^1.19.4",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   }
 }
