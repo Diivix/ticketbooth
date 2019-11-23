@@ -12,11 +12,7 @@ COPY . .
 
 RUN mkdir -p /data/keys
 # If you are building your code for production
-# RUN npm ci --only=production
 RUN npm install
-# RUN npm ci --only=production
-# RUN node_modules/.bin/sequelize db:migrate
-# RUN node_modules/.bin/sequelize db:seed:all
 
 # Setup app environment variables
 ENV NODE_ENV='production'

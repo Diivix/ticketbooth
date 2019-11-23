@@ -1,11 +1,7 @@
-require('dotenv').config()
-
 const express = require('express');
-const http = require('http');
 const helmet = require('helmet');
 // const cors = require('cors')
 const passport = require('passport');
-const fs = require('fs')
 const debug = require('debug')('server') // debug logger
 const morgan = require('morgan')         // request logger
 
@@ -48,10 +44,4 @@ app.use('/', function(req, res) {
   res.send('Ticketbooth api works!');
 });
 
-http.createServer(app).listen(process.env.PORT);
-// https.createServer({
-//   key: fs.readFileSync(process.env.SERVER_KEY),
-//   cert: fs.readFileSync(process.env.SERVER_CERT)
-// }, app).listen(process.env.PORT);
-
-debug('Server listening on port ' + process.env.PORT);
+module.exports = app;

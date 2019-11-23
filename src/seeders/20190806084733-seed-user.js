@@ -19,8 +19,8 @@ module.exports = {
         email: 'aegar@compendium.com',
         passwordHash: '$2b$10$hWlSYgAgJ1Wn3kFEXRKTXOMNrY5.oIYO.3syXPw/XQQkM14aYO8d.',
         role: 'admin',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        createdAt: new Date(),
+        updatedAt: new Date()
       }], {});
   },
 
