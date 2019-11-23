@@ -22,8 +22,8 @@ ENV SERVER_KEY='/data/keys/server.key'
 ENV SERVER_CERT='/data/keys/server.crt'
 ENV PRIVATE_KEY='/data/keys/private.key'
 ENV PUBLIC_KEY='/data/keys/public.key'
-ENV JWT_ISSUER='ticketboothauth.com'
-ENV JWT_AUDIENCE='compendium.com'
+ENV JWT_ISSUER='diivix.com'
+ENV JWT_AUDIENCE='diivix.com'
 ENV JWT_EXPIRES_IN='12h'
 
 CMD [ "npm", "start" ]
