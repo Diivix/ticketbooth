@@ -38,7 +38,7 @@ test:
     - rm -r keys
     - docker container start $CI_PROJECT_NAME
     - sleep 5
-    - docker exec -t --workdir /app ticketbooth npm run migrate:reset
+    - docker exec -t --workdir /app $CI_PROJECT_NAME npm run migrate:reset
     - curl -kv http://docker:3080
   tags:
     - docker
