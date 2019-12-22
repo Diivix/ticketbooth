@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
   }
 
   debug('User %o signed in.', req.user.username)
-  return res.status(200).send(token);
+  return res.status(200).send({token});
 });
 
 module.exports = router;
