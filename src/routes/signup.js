@@ -6,21 +6,32 @@ const createToken = require('../utils/token')
 const debug = require('debug')('route:token'); // debug logger
 
 router.post('/', async function(req, res) {
-  if(req.user.role !== 'admin') {
-    return res.status(403).send('Only administrators can create users.');
-  }
+  // if(req.user.role !== 'admin') {
+  //   return res.status(403).send('Only administrators can create users.');
+  // }
+  if (!req.body.email) return res.status(400).send();
+  if (!req.body.username) return res.status(400).send();
+  if (!req.body.password) return res.status(400).send();
+  if (!req.body.token || req.body.token !== 'throughvictorymychainsarebroken') return res.status(400).send(); // secret token
 
   const { username, email, password } = req.body;
-  const role = 'user';
-  const date = new Date().toISOString();
 
+  const existingUser = await db.users.findOne({ where: { email: email } })
+      .catch((err) => {
+        debug('Error retrieving user. %o', JSON.stringify(err));
+      });
+    
+  // if true, user exists, but don't tell the client.
+  if (existingUser) return res.status(400).send();
+
+  // Hash the password and create the user.
   bcrypt.hash(password, 10, function(err, passwordHash) {
     if (err) {
       return res.status(500).send(err);
     }
 
-    //TODO: Check that a user with the same email hasn't already been created.
-
+    const role = 'user';
+    const date = new Date().toISOString();
     db.users
       .create({ username, email, passwordHash, role, date, date })
       .then(user => {

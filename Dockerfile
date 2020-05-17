@@ -24,6 +24,6 @@ ENV PRIVATE_KEY='/data/keys/private.key'
 ENV PUBLIC_KEY='/data/keys/public.key'
 ENV JWT_ISSUER='diivix.com'
 ENV JWT_AUDIENCE='diivix.com'
-ENV JWT_EXPIRES_IN='12h'
+ENV JWT_EXPIRES_IN='1h'
 
 CMD [ "npm", "start" ]

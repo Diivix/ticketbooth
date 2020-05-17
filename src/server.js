@@ -37,7 +37,7 @@ app.options('*', cors());  // include before other routes
 
 // Routes
 // Need to be admin user to signup new users.
-app.use('/signup', passport.authenticate('jwt', { session: false }), signupRouter);
+app.use('/signup', signupRouter); // Allow anonymous.
 app.use('/signin', passport.authenticate('basic', { session: false }), signinRouter);
 app.use('/user', passport.authenticate('jwt', { session: false }), userRouter);
 
