@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -13,12 +13,12 @@ module.exports = {
       }], {});
     */
 
-    return queryInterface.bulkInsert('users', [
+    return queryInterface.bulkInsert("users", [
       {
-        username: 'Aegar',
-        email: 'aegar@compendium.com',
-        passwordHash: '$2b$10$hWlSYgAgJ1Wn3kFEXRKTXOMNrY5.oIYO.3syXPw/XQQkM14aYO8d.',
-        role: 'admin',
+        username: "Aegar",
+        email: "aegar@compendium.com",
+        passwordHash: "$2b$10$hWlSYgAgJ1Wn3kFEXRKTXOMNrY5.oIYO.3syXPw/XQQkM14aYO8d.",
+        role: "admin",
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
@@ -32,6 +32,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-    return queryInterface.bulkDelete('users', null, {});
+    return queryInterface.bulkDelete("users", null, {});
   }
 };

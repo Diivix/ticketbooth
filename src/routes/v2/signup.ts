@@ -1,11 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../../models');
-const bcrypt = require('bcrypt');
-const createToken = require('../../utils/token')
-const debug = require('debug')('route:token'); // debug logger
 
-router.post('/', async function(req, res) {
+import express from "express";
+import { createToken } from "../../utils/token";
+import debug from "debug";
+import bcrypt from "bcrypt";
+// @ts-ignore
+import db from "../../models/index";
+
+const logger = debug("route:signup");
+const router = express.Router();
+
+router.post("/", async function(req, res) {
   // if(req.user.role !== 'admin') {
   //   return res.status(403).send('Only administrators can create users.');
   // }
@@ -17,8 +21,8 @@ router.post('/', async function(req, res) {
   const { username, email, password } = req.body;
 
   const existingUser = await db.users.findOne({ where: { email: email } })
-      .catch((err) => {
-        debug('Error retrieving user. %o', JSON.stringify(err));
+      .catch((err: Error) => {
+        logger("Error retrieving user. %o", JSON.stringify(err));
       });
     
   // if true, user exists, but don't tell the client.
@@ -30,11 +34,10 @@ router.post('/', async function(req, res) {
       return res.status(500).send(err);
     }
 
-    const role = 'user';
+    const role = "user";
     const date = new Date().toISOString();
-    db.users
-      .create({ username, email, passwordHash, role, date, date })
-      .then(user => {
+    db.users.create({ username, email, passwordHash, role, createdAt: date, updatedAt: date })
+      .then((user: any) => {
         const token = createToken(user);
         if(token === null) {
           return res.status(500);
@@ -42,11 +45,11 @@ router.post('/', async function(req, res) {
         
         return res.status(200).send(token);
       })
-      .catch(err => {
-        debug('There was an error creating the user', JSON.stringify(err));
+      .catch((err: Error) => {
+        logger("There was an error creating the user", JSON.stringify(err));
         return res.status(500).send(err);
       });
   });
 });
 
-module.exports = router;
+export default router;
