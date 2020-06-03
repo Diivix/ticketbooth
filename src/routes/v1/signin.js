@@ -1,7 +1,7 @@
 const fs = require('fs');
 const express = require('express');
 const router = express.Router();
-const createToken = require('../utils/token');
+const createToken = require('../../utils/token');
 const debug = require('debug')('route:signin'); // debug logger
 
 router.post('/', function(req, res) {

@@ -25,5 +25,6 @@ ENV PUBLIC_KEY='/data/keys/public.key'
 ENV JWT_ISSUER='diivix.com'
 ENV JWT_AUDIENCE='diivix.com'
 ENV JWT_EXPIRES_IN='1h'
+ENV SIGNUP_KEY='throughvictorymychainsarebroken'
 
 CMD [ "npm", "start" ]

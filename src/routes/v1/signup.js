@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
+const db = require('../../models');
 const bcrypt = require('bcrypt');
-const createToken = require('../utils/token')
+const createToken = require('../../utils/token')
 const debug = require('debug')('route:token'); // debug logger
 
 router.post('/', async function(req, res) {
@@ -12,7 +12,7 @@ router.post('/', async function(req, res) {
   if (!req.body.email) return res.status(400).send();
   if (!req.body.username) return res.status(400).send();
   if (!req.body.password) return res.status(400).send();
-  if (!req.body.token || req.body.token !== 'throughvictorymychainsarebroken') return res.status(400).send(); // secret token
+  if (!req.body.token || req.body.token !== process.env.SIGNUP_KEY) return res.status(400).send(); // not so secret token to restrict user signup
 
   const { username, email, password } = req.body;
 

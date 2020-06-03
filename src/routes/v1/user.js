@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
+const db = require('../../models');
 const debug = require('debug')('route:user'); // debug logger
 
 router.get('/', function(req, res) {
