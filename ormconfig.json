@@ -1,0 +1,8 @@
+{
+  "type": "sqlite",
+  "database": "./ticketbooth.sqlite3",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["models/**/*.ts"],
+  "migrations": ["models/migrations/**/*.ts"]
+}

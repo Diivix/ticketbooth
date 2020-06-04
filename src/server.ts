@@ -12,6 +12,7 @@ import signupRouterV1 from './routes/v1/signup';
 import userRouterV2 from './routes/v2/user';
 import signinRouterV2 from './routes/v2/signin';
 import signupRouterV2 from './routes/v2/signup';
+import 'reflect-metadata'; // Required for typeorm
 
 const app = express();
 const logger = debug('server');
