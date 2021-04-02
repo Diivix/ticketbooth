@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "module": "ESNext",
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2017",

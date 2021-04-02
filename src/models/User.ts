@@ -11,7 +11,7 @@ export class User {
   @Column()
   passwordHash: string;
   @Column()
-  role: number;
+  role: string;
   @Column()
   createdBy: string;
   @Column()
